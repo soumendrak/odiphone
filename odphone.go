@@ -1,12 +1,12 @@
-// Package knphone (Kannada Phone) is a phonetic algorithm for indexing
-// unicode Kannada words by their pronounciation, like Metaphone for English.
+// Package odphone (Odia Phone) is a phonetic algorithm for indexing
+// unicode Odia words by their pronounciation, like Metaphone for English.
 // The algorithm generates three Romanized phonetic keys (hashes) of varying
-// phonetic proximity for a given Kannada word.
+// phonetic proximity for a given Odia word.
 //
 // The algorithm takes into account the context sensitivity of sounds, syntactic
 // and phonetic gemination, compounding, modifiers, and other known exceptions
 // to produce Romanized phonetic hashes of increasing phonetic affinity that are
-// faithful to the pronunciation of the original Kannada word.
+// faithful to the pronunciation of the original Odia word.
 //
 // `key0` = a broad phonetic hash comparable to a Metaphone key that doesn't account
 // for hard sounds or phonetic modifiers
@@ -16,13 +16,13 @@
 // `key2` = highly inclusive and narrow hash that accounts for hard sounds
 // and phonetic modifiers
 //
-// knphone was created to aid spelling tolerant Kannada word search, but may
+// odphone was created to aid spelling tolerant Odia word search, but may
 // be useful in tasks like spell checking, word suggestion etc.
 //
 // This is based on MLphone (https://github.com/knadh/mlphone/) for Malayalam.
 //
-// Kailash Nadh (c) 2019. https://nadh.in | License: GPLv3
-package knphone
+// Soumendra Kumar Sahoo (c) 2022. https://www.soumendrak.com | License: GPLv3
+package odphone
 
 import (
 	"regexp"
@@ -30,22 +30,61 @@ import (
 )
 
 var vowels = map[string]string{
-	"ಅ": "A", "ಆ": "A", "ಇ": "I", "ಈ": "I", "ಉ": "U", "ಊ": "U", "ಋ": "R",
-	"ಎ": "E", "ಏ": "E", "ಐ": "AI", "ಒ": "O", "ಓ": "O", "ಔ": "O",
+	"ଅ": "A",
+    "ଆ": "A",
+    "ଇ": "E",
+    "ଈ": "E",
+    "ଉ": "U",
+    "ଊ": "U",
+    "ଋ": "R",
+	"ୠ": "R",
+    "ଏ": "E",
+    "ଐ": "AI",
+    "ଓ": "O",
+    "ଔ": "O",
 }
 
 var consonants = map[string]string{
-	"ಕ": "K", "ಖ": "K", "ಗ": "K", "ಘ": "K", "ಙ": "NG",
-	"ಚ": "C", "ಛ": "C", "ಜ": "J", "ಝ": "J", "ಞ": "NJ",
-	"ಟ": "T", "ಠ": "T", "ಡ": "T", "ಢ": "T", "ಣ": "N1",
-	"ತ": "0", "ಥ": "0", "ದ": "0", "ಧ": "0", "ನ": "N",
-	"ಪ": "P", "ಫ": "F", "ಬ": "B", "ಭ": "B", "ಮ": "M",
-	"ಯ": "Y", "ರ": "R", "ಲ": "L", "ವ": "V",
-	"ಶ": "S1", "ಷ": "S1", "ಸ": "S", "ಹ": "H",
-	"ಳ": "L1", "ೞ": "Z", "ಱ": "R1",
+	"କ": "K",
+    "ଖ": "K",
+    "ଗ": "G",
+    "ଘ": "G",
+    "ଙ": "WN",
+    "ଚ": "C",
+    "ଛ": "C",
+    "ଜ": "J",
+    "ଝ": "J",
+    "ଞ": "N",
+    "ଟ": "T",
+    "ଠ": "T",
+    "ଡ": "D",
+    "ଢ": "D",
+    "ଣ": "N",
+    "ତ": "T",
+    "ଥ": "T",
+    "ଦ": "D",
+    "ଧ": "D",
+    "ନ": "N",
+    "ପ": "P",
+    "ଫ": "F",
+    "ବ": "B",
+    "ଭ": "V",
+    "ମ": "M",
+    "ଯ": "J",
+    "ର": "R",
+    "ଲ": "L",
+    "ଳ": "L",
+    "ଵ": "B",
+    "ଶ": "S",
+    "ଷ": "S",
+    "ସ": "S",
+    "ହ": "H",
+    "ୟ": "Y",
+    "ୱ": "W",
 }
 
 var compounds = map[string]string{
+	// TODO: Tobe done for Odia
 	"ಕ್ಕ": "K2", "ಗ್ಗಾ": "K", "ಙ್ಙ": "NG",
 	"ಚ್ಚ": "C2", "ಜ್ಜ": "J", "ಞ್ಞ": "NJ",
 	"ಟ್ಟ": "T2", "ಣ್ಣ": "N2",
@@ -58,31 +97,47 @@ var compounds = map[string]string{
 }
 
 var modifiers = map[string]string{
-	"ಾ": "", "ಃ": "", "್": "", "ೃ": "R",
-	"ಂ": "3", "ಿ": "4", "ೀ": "4", "ು": "5", "ೂ": "5", "ೆ": "6",
-	"ೇ": "6", "ೈ": "7", "ೊ": "8", "ೋ": "8", "ೌ": "9", "ൗ": "9",
+	"ଁ": "1",
+	"ଂ": "1",
+	"ଃ": "3",
+	"଼": "4",
+	"ଽ": "",
+	"ା": "6",
+	"ି": "7",
+	"ୀ": "7",
+	"ୁ": "8",
+	"ୂ": "8",
+	"ୃ": "9",
+	"ୄ": "9",
+	"େ": "2",
+	"ୈ": "2",
+	"ୋ": "5",
+	"ୌ": "5",
+	"୍": "4",
+	"ୖ": "2",
+	"ୗ": "",
 }
 
 var (
 	regexKey0, _       = regexp.Compile(`[1,2,4-9]`)
 	regexKey1, _       = regexp.Compile(`[2,4-9]`)
-	regexNonKannada, _ = regexp.Compile(`[\P{Kannada}]`)
+	regexNonOdia, _ = regexp.Compile(`[\P{Odia}]`)
 	regexAlphaNum, _   = regexp.Compile(`[^0-9A-Z]`)
 )
 
-// KNphone is the Kannada-phone tokenizer.
-type KNphone struct {
+// ODphone is the Odia-phone tokenizer.
+type ODphone struct {
 	modCompounds  *regexp.Regexp
 	modConsonants *regexp.Regexp
 	modVowels     *regexp.Regexp
 }
 
-// New returns a new instance of the KNPhone tokenizer.
-func New() *KNphone {
+// New returns a new instance of the ODPhone tokenizer.
+func New() *ODphone {
 	var (
 		glyphs []string
 		mods   []string
-		kn     = &KNphone{}
+		od     = &ODphone{}
 	)
 
 	// modifiers.
@@ -94,29 +149,29 @@ func New() *KNphone {
 	for k := range compounds {
 		glyphs = append(glyphs, k)
 	}
-	kn.modCompounds, _ = regexp.Compile(`((` + strings.Join(glyphs, "|") + `)(` + strings.Join(mods, "|") + `))`)
+	od.modCompounds, _ = regexp.Compile(`((` + strings.Join(glyphs, "|") + `)(` + strings.Join(mods, "|") + `))`)
 
 	// consonants.
 	glyphs = []string{}
 	for k := range consonants {
 		glyphs = append(glyphs, k)
 	}
-	kn.modConsonants, _ = regexp.Compile(`((` + strings.Join(glyphs, "|") + `)(` + strings.Join(mods, "|") + `))`)
+	od.modConsonants, _ = regexp.Compile(`((` + strings.Join(glyphs, "|") + `)(` + strings.Join(mods, "|") + `))`)
 
 	// vowels.
 	glyphs = []string{}
 	for k := range vowels {
 		glyphs = append(glyphs, k)
 	}
-	kn.modVowels, _ = regexp.Compile(`((` + strings.Join(glyphs, "|") + `)(` + strings.Join(mods, "|") + `))`)
+	od.modVowels, _ = regexp.Compile(`((` + strings.Join(glyphs, "|") + `)(` + strings.Join(mods, "|") + `))`)
 
-	return kn
+	return od
 }
 
-// Encode encodes a unicode Kannada string to its Roman KNPhone hash.
+// Encode encodes a unicode Odia string to its Roman ODPhone hash.
 // Ideally, words should be encoded one at a time, and not as phrases
 // or sentences.
-func (k *KNphone) Encode(input string) (string, string, string) {
+func (k *ODphone) Encode(input string) (string, string, string) {
 	// key2 accounts for hard and modified sounds.
 	key2 := k.process(input)
 
@@ -130,9 +185,9 @@ func (k *KNphone) Encode(input string) (string, string, string) {
 	return key0, key1, key2
 }
 
-func (k *KNphone) process(input string) string {
+func (k *ODphone) process(input string) string {
 	// Remove all non-malayalam characters.
-	input = regexNonKannada.ReplaceAllString(strings.Trim(input, ""), "")
+	input = regexNonOdia.ReplaceAllString(strings.Trim(input, ""), "")
 
 	// All character replacements are grouped between { and } to maintain
 	// separatability till the final step.
@@ -168,7 +223,7 @@ func (k *KNphone) process(input string) string {
 	return regexAlphaNum.ReplaceAllString(input, "")
 }
 
-func (k *KNphone) replaceModifiedGlyphs(input string, glyphs map[string]string, r *regexp.Regexp) string {
+func (k *ODphone) replaceModifiedGlyphs(input string, glyphs map[string]string, r *regexp.Regexp) string {
 	for _, matches := range r.FindAllStringSubmatch(input, -1) {
 		for _, m := range matches {
 			if rep, ok := glyphs[m]; ok {

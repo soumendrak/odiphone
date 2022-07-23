@@ -1,3 +1,3 @@
-module github.com/knadh/knphone
+module github.com/knadh/odphone
 
 go 1.12
