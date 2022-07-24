@@ -39,44 +39,44 @@ var vowels = map[string]string{
     "ଋ": "R",
 	"ୠ": "R",
     "ଏ": "E",
-    "ଐ": "AI",
+    "ଐ": "EI",
     "ଓ": "O",
-    "ଔ": "O",
+    "ଔ": "OU",
 }
 
 var consonants = map[string]string{
 	"କ": "K",
-    "ଖ": "K",
+    "ଖ": "KH",
     "ଗ": "G",
-    "ଘ": "G",
+    "ଘ": "GH",
     "ଙ": "WN",
-    "ଚ": "C",
-    "ଛ": "C",
+    "ଚ": "CH",
+    "ଛ": "CHH",
     "ଜ": "J",
-    "ଝ": "J",
+    "ଝ": "JH",
     "ଞ": "N",
     "ଟ": "T",
-    "ଠ": "T",
+    "ଠ": "TH",
     "ଡ": "D",
-    "ଢ": "D",
+    "ଢ": "DH",
     "ଣ": "N",
     "ତ": "T",
-    "ଥ": "T",
+    "ଥ": "TH",
     "ଦ": "D",
-    "ଧ": "D",
+    "ଧ": "DH",
     "ନ": "N",
     "ପ": "P",
     "ଫ": "F",
     "ବ": "B",
-    "ଭ": "V",
+    "ଭ": "BH",
     "ମ": "M",
     "ଯ": "J",
     "ର": "R",
     "ଲ": "L",
     "ଳ": "L",
     "ଵ": "B",
-    "ଶ": "S",
-    "ଷ": "S",
+    "ଶ": "SH",
+    "ଷ": "SH",
     "ସ": "S",
     "ହ": "H",
     "ୟ": "Y",
@@ -121,7 +121,7 @@ var modifiers = map[string]string{
 var (
 	regexKey0, _       = regexp.Compile(`[1,2,4-9]`)
 	regexKey1, _       = regexp.Compile(`[2,4-9]`)
-	regexNonOdia, _ = regexp.Compile(`[\P{Odia}]`)
+	regexNonOdia, _    = regexp.Compile(`[\P{Odia}]`)
 	regexAlphaNum, _   = regexp.Compile(`[^0-9A-Z]`)
 )
 
