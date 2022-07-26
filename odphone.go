@@ -22,65 +22,66 @@
 // This is based on MLphone (https://github.com/knadh/mlphone/) for Malayalam.
 //
 // Soumendra Kumar Sahoo (c) 2022. https://www.soumendrak.com | License: GPLv3
-package odphone
+package main
 
 import (
+	"fmt"
 	"regexp"
 	"strings"
 )
 
 var vowels = map[string]string{
 	"ଅ": "A",
-    "ଆ": "A",
-    "ଇ": "E",
-    "ଈ": "E",
-    "ଉ": "U",
-    "ଊ": "U",
-    "ଋ": "R",
+	"ଆ": "A",
+	"ଇ": "E",
+	"ଈ": "E",
+	"ଉ": "U",
+	"ଊ": "U",
+	"ଋ": "R",
 	"ୠ": "R",
-    "ଏ": "E",
-    "ଐ": "EI",
-    "ଓ": "O",
-    "ଔ": "OU",
+	"ଏ": "E",
+	"ଐ": "EI",
+	"ଓ": "O",
+	"ଔ": "OU",
 }
 
 var consonants = map[string]string{
 	"କ": "K",
-    "ଖ": "KH",
-    "ଗ": "G",
-    "ଘ": "GH",
-    "ଙ": "WN",
-    "ଚ": "CH",
-    "ଛ": "CHH",
-    "ଜ": "J",
-    "ଝ": "JH",
-    "ଞ": "N",
-    "ଟ": "T",
-    "ଠ": "TH",
-    "ଡ": "D",
-    "ଢ": "DH",
-    "ଣ": "N",
-    "ତ": "T",
-    "ଥ": "TH",
-    "ଦ": "D",
-    "ଧ": "DH",
-    "ନ": "N",
-    "ପ": "P",
-    "ଫ": "F",
-    "ବ": "B",
-    "ଭ": "BH",
-    "ମ": "M",
-    "ଯ": "J",
-    "ର": "R",
-    "ଲ": "L",
-    "ଳ": "L",
-    "ଵ": "B",
-    "ଶ": "SH",
-    "ଷ": "SH",
-    "ସ": "S",
-    "ହ": "H",
-    "ୟ": "Y",
-    "ୱ": "W",
+	"ଖ": "KH",
+	"ଗ": "G",
+	"ଘ": "GH",
+	"ଙ": "WN",
+	"ଚ": "CH",
+	"ଛ": "CHH",
+	"ଜ": "J",
+	"ଝ": "JH",
+	"ଞ": "N",
+	"ଟ": "T",
+	"ଠ": "TH",
+	"ଡ": "D",
+	"ଢ": "DH",
+	"ଣ": "N",
+	"ତ": "T",
+	"ଥ": "TH",
+	"ଦ": "D",
+	"ଧ": "DH",
+	"ନ": "N",
+	"ପ": "P",
+	"ଫ": "F",
+	"ବ": "B",
+	"ଭ": "BH",
+	"ମ": "M",
+	"ଯ": "J",
+	"ର": "R",
+	"ଲ": "L",
+	"ଳ": "L",
+	"ଵ": "B",
+	"ଶ": "SH",
+	"ଷ": "SH",
+	"ସ": "S",
+	"ହ": "H",
+	"ୟ": "Y",
+	"ୱ": "W",
 }
 
 var compounds = map[string]string{
@@ -97,32 +98,32 @@ var compounds = map[string]string{
 }
 
 var modifiers = map[string]string{
-	"ଁ": "1",
-	"ଂ": "1",
-	"ଃ": "3",
-	"଼": "4",
-	"ଽ": "",
-	"ା": "6",
-	"ି": "7",
-	"ୀ": "7",
-	"ୁ": "8",
-	"ୂ": "8",
-	"ୃ": "9",
-	"ୄ": "9",
-	"େ": "2",
-	"ୈ": "2",
-	"ୋ": "5",
-	"ୌ": "5",
-	"୍": "4",
-	"ୖ": "2",
-	"ୗ": "",
+	"ା": "1",
+	"଼": "2",
+	"୍": "2",
+	"ୖ": "3",
+	"େ": "3",
+	"ୈ": "3",
+	"ୗ": "3",
+	"ୋ": "4",
+	"ୌ": "4",
+	"ି": "5",
+	"ୀ": "5",
+	"ୁ": "6",
+	"ୂ": "6",
+	"ୃ": "6",
+	"ଃ": "7",
+	"ଁ": "7",
+	"ଂ": "7",
+	"ୄ": "8",
+	"ଽ": "8",
 }
 
 var (
-	regexKey0, _       = regexp.Compile(`[1,2,4-9]`)
-	regexKey1, _       = regexp.Compile(`[2,4-9]`)
-	regexNonOdia, _    = regexp.Compile(`[\P{Odia}]`)
-	regexAlphaNum, _   = regexp.Compile(`[^0-9A-Z]`)
+	regexKey0, _     = regexp.Compile(`[1-8]`)
+	regexKey1, _     = regexp.Compile(`[7-8]`)
+	regexNonOdia, _  = regexp.Compile(`\P{Oriya}`)
+	regexAlphaNum, _ = regexp.Compile(`[^\dA-Z]`)
 )
 
 // ODphone is the Odia-phone tokenizer.
@@ -186,7 +187,7 @@ func (k *ODphone) Encode(input string) (string, string, string) {
 }
 
 func (k *ODphone) process(input string) string {
-	// Remove all non-malayalam characters.
+	// Remove all non-odia characters.
 	input = regexNonOdia.ReplaceAllString(strings.Trim(input, ""), "")
 
 	// All character replacements are grouped between { and } to maintain
@@ -232,4 +233,11 @@ func (k *ODphone) replaceModifiedGlyphs(input string, glyphs map[string]string, 
 		}
 	}
 	return input
+}
+
+// This is for testing purpose
+func main() {
+	od := New()
+	fmt.Println(od.Encode("ପାକସ୍ଥଳୀ"))
+	fmt.Println(od.Encode("ଅଭିସାର"))
 }
