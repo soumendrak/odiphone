@@ -22,7 +22,7 @@
 // This is based on MLphone (https://github.com/knadh/mlphone/) for Malayalam.
 //
 // Soumendra Kumar Sahoo (c) 2022. https://www.soumendrak.com | License: GPLv3
-package main
+package odphone
 
 import (
 	"fmt"
