@@ -25,7 +25,6 @@
 package odphone
 
 import (
-	"fmt"
 	"regexp"
 	"strings"
 )
@@ -129,7 +128,7 @@ type ODphone struct {
 	modVowels     *regexp.Regexp
 }
 
-// New returns a new instance of the ODPhone tokenizer.
+// New returns a new instance of the ODphone tokenizer.
 func New() *ODphone {
 	var (
 		glyphs []string
@@ -138,13 +137,13 @@ func New() *ODphone {
 	)
 
 	// modifiers.
-	for k := range modifiers {
-		mods = append(mods, k)
+	for m := range modifiers {
+		mods = append(mods, m)
 	}
 
 	// compounds.
-	for k := range compounds {
-		glyphs = append(glyphs, k)
+	for c := range compounds {
+		glyphs = append(glyphs, c)
 	}
 	od.modCompounds, _ = regexp.Compile(`((` + strings.Join(glyphs, "|") + `)(` + strings.Join(mods, "|") + `))`)
 
@@ -165,12 +164,12 @@ func New() *ODphone {
 	return od
 }
 
-// Encode encodes a unicode Odia string to its Roman ODPhone hash.
+// Encode encodes a unicode Odia string to its Roman ODphone hash.
 // Ideally, words should be encoded one at a time, and not as phrases
 // or sentences.
-func (k *ODphone) Encode(input string) (string, string, string) {
+func (od *ODphone) Encode(input string) (string, string, string) {
 	// key2 accounts for hard and modified sounds.
-	key2 := k.process(input)
+	key2 := od.process(input)
 
 	// key1 loses numeric modifiers that denote phonetic modifiers.
 	key1 := regexKey1.ReplaceAllString(key2, "")
@@ -182,7 +181,7 @@ func (k *ODphone) Encode(input string) (string, string, string) {
 	return key0, key1, key2
 }
 
-func (k *ODphone) process(input string) string {
+func (od *ODphone) process(input string) string {
 	// Remove all non-odia characters.
 	input = regexNonOdia.ReplaceAllString(strings.Trim(input, ""), "")
 
@@ -190,7 +189,7 @@ func (k *ODphone) process(input string) string {
 	// separatability till the final step.
 
 	// Replace and group modified compounds.
-	input = k.replaceModifiedGlyphs(input, compounds, k.modCompounds)
+	input = od.replaceModifiedGlyphs(input, compounds, od.modCompounds)
 
 	// Replace and group unmodified compounds.
 	for k, v := range compounds {
@@ -198,8 +197,8 @@ func (k *ODphone) process(input string) string {
 	}
 
 	// Replace and group modified consonants and vowels.
-	input = k.replaceModifiedGlyphs(input, consonants, k.modConsonants)
-	input = k.replaceModifiedGlyphs(input, vowels, k.modVowels)
+	input = od.replaceModifiedGlyphs(input, consonants, od.modConsonants)
+	input = od.replaceModifiedGlyphs(input, vowels, od.modVowels)
 
 	// Replace and group unmodified consonants.
 	for k, v := range consonants {
@@ -220,7 +219,7 @@ func (k *ODphone) process(input string) string {
 	return regexAlphaNum.ReplaceAllString(input, "")
 }
 
-func (k *ODphone) replaceModifiedGlyphs(input string, glyphs map[string]string, r *regexp.Regexp) string {
+func (od *ODphone) replaceModifiedGlyphs(input string, glyphs map[string]string, r *regexp.Regexp) string {
 	for _, matches := range r.FindAllStringSubmatch(input, -1) {
 		for _, m := range matches {
 			if rep, ok := glyphs[m]; ok {
@@ -229,12 +228,4 @@ func (k *ODphone) replaceModifiedGlyphs(input string, glyphs map[string]string, 
 		}
 	}
 	return input
-}
-
-// This is for testing purpose
-func main() {
-	od := New()
-	fmt.Println(od.Encode("ଭ୍ରମର"))
-	fmt.Println(od.Encode("ଭ୍ରମରେ"))
-	fmt.Println(od.Encode("ଭ୍ରମଣ"))
 }
