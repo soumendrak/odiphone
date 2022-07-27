@@ -10,12 +10,11 @@ The algorithm takes into account the context sensitivity of sounds, syntactic an
 
 ### Examples
 
-| Word       | Pronunciation | key0    | key1    | key2      |
-| ---------- | ------------- | ------- | ------- | --------- |
-| ପାକସ୍ଥଳୀ | pākasthali   | A3KS3KY | A3KS3KY | A3K6S3KY6 |
-| ଅଭିସାର    | abhīsāra       | URSR    | UR1SR1  | UR14SR15  |
-| ಈರಿತ       | īrita         | IR0     | IR0     | IR40      |
-| ಒನಮಾಲೆ     | onamāle       | ONML    | ONML    | ONML6     |
+| Word    | Pronunciation | key0 | key1    | key2      |
+|---------|---------------|------|---------|-----------|
+| ଭ୍ରମର   | vramara       | VRMR | V2RMR   | V2RMR     |
+| ଭ୍ରମରେ  | vramarè       | VRMR | V2RMR   | V2RMR3    |
+| ଭ୍ରମଣ   | vramańa       | VRMN | V2RMN   | V2RMN     |
 
 ### Go implementation
 
@@ -32,9 +31,10 @@ import (
 )
 
 func main() {
-	k := odphone.New()
-	fmt.Println(k.Encode("ପାକସ୍ଥଳୀ"))
-	fmt.Println(k.Encode("ଅଭିସାର"))
+	od := odphone.New()
+	fmt.Println(od.Encode("ଭ୍ରମର"))
+	fmt.Println(od.Encode("ଭ୍ରମରେ"))
+	fmt.Println(od.Encode("ଭ୍ରମଣ"))
 }
 
 ```

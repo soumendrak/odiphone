@@ -55,7 +55,7 @@ var consonants = map[string]string{
 	"ଛ": "CHH",
 	"ଜ": "J",
 	"ଝ": "JH",
-	"ଞ": "N",
+	"ଞ": "NY",
 	"ଟ": "T",
 	"ଠ": "TH",
 	"ଡ": "D",
@@ -69,12 +69,12 @@ var consonants = map[string]string{
 	"ପ": "P",
 	"ଫ": "F",
 	"ବ": "B",
-	"ଭ": "BH",
+	"ଭ": "V",
 	"ମ": "M",
 	"ଯ": "J",
 	"ର": "R",
 	"ଲ": "L",
-	"ଳ": "L",
+	"ଳ": "LH",
 	"ଵ": "B",
 	"ଶ": "SH",
 	"ଷ": "SH",
@@ -86,15 +86,11 @@ var consonants = map[string]string{
 
 var compounds = map[string]string{
 	// TODO: Tobe done for Odia
-	"ಕ್ಕ": "K2", "ಗ್ಗಾ": "K", "ಙ್ಙ": "NG",
-	"ಚ್ಚ": "C2", "ಜ್ಜ": "J", "ಞ್ಞ": "NJ",
-	"ಟ್ಟ": "T2", "ಣ್ಣ": "N2",
-	"ತ್ತ": "0", "ದ್ದ": "D", "ದ್ಧ": "D", "ನ್ನ": "NN",
-	"ಬ್ಬ": "B",
-	"ಪ್ಪ": "P2", "ಮ್ಮ": "M2",
-	"ಯ್ಯ": "Y", "ಲ್ಲ": "L2", "ವ್ವ": "V", "ಶ್ಶ": "S1", "ಸ್ಸ": "S",
-	"ಳ್ಳ": "L12",
-	"ಕ್ಷ": "KS1",
+	"କ୍ତ": "K2",
+	"ଙ୍କ": "K3",
+	"ଙ୍ଗ": "NG",
+	"ଙ୍ଘ": "NG2",
+	"ଞ୍ଜ": "NJ",
 }
 
 var modifiers = map[string]string{
@@ -220,7 +216,7 @@ func (k *ODphone) process(input string) string {
 		input = strings.ReplaceAll(input, k, v)
 	}
 
-	// Remove non alpha numeric characters (losing the bracket grouping).
+	// Remove non-alphanumeric characters (losing the bracket grouping).
 	return regexAlphaNum.ReplaceAllString(input, "")
 }
 
@@ -238,6 +234,7 @@ func (k *ODphone) replaceModifiedGlyphs(input string, glyphs map[string]string, 
 // This is for testing purpose
 func main() {
 	od := New()
-	fmt.Println(od.Encode("ପାକସ୍ଥଳୀ"))
-	fmt.Println(od.Encode("ଅଭିସାର"))
+	fmt.Println(od.Encode("ଭ୍ରମର"))
+	fmt.Println(od.Encode("ଭ୍ରମରେ"))
+	fmt.Println(od.Encode("ଭ୍ରମଣ"))
 }
