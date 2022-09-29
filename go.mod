@@ -1,4 +1,4 @@
-module github.com/soumendrak/odphone
+module github.com/odictly/odphone
 
 go 1.18
 

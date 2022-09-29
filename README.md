@@ -19,7 +19,7 @@ The algorithm takes into account the context sensitivity of sounds, syntactic an
 ### Go implementation
 
 Install the package:
-`go get -u github.com/soumendrak/odphone`
+`go get -u github.com/odictly/odphone`
 
 ```go
 package main
@@ -27,7 +27,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/soumendrak/odphone"
+	"github.com/odictly/odphone"
 )
 
 func main() {
