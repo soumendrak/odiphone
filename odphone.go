@@ -32,14 +32,14 @@ import (
 var vowels = map[string]string{
 	"ଅ": "A",
 	"ଆ": "A",
-	"ଇ": "E",
-	"ଈ": "E",
+	"ଇ": "I",
+	"ଈ": "I",
 	"ଉ": "U",
 	"ଊ": "U",
 	"ଋ": "R",
 	"ୠ": "R",
 	"ଏ": "E",
-	"ଐ": "EI",
+	"ଐ": "AI",
 	"ଓ": "O",
 	"ଔ": "OU",
 }
@@ -66,7 +66,7 @@ var consonants = map[string]string{
 	"ଧ": "DH",
 	"ନ": "N",
 	"ପ": "P",
-	"ଫ": "F",
+	"ଫ": "PH",
 	"ବ": "B",
 	"ଭ": "V",
 	"ମ": "M",
@@ -80,7 +80,7 @@ var consonants = map[string]string{
 	"ସ": "S",
 	"ହ": "H",
 	"ୟ": "Y",
-	"ୱ": "W",
+	"ୱ": "UA",
 }
 
 var compounds = map[string]string{
