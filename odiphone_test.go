@@ -20,25 +20,32 @@ func TestODIPhone(t *testing.T) {
 	testStrings := []testVal{
 		{
 			word: "ଅଂଶ",
-			expected: expected{"VRMR",
-				"V2RMR",
-				"V2RMR",
+			expected: expected{"ASH",
+				"ASH",
+				"A7SH",
+			},
+		},
+		{
+			word: "ଭ୍ରମର",
+			expected: expected{"BHRMR",
+				"BH2RMR",
+				"BH2RMR",
 			},
 		},
 		{
 			word: "ଭ୍ରମରେ",
 			expected: expected{
-				"VRMR",
-				"V2RMR3",
-				"V2RMR3",
+				"BHRMR",
+				"BH2RMR3",
+				"BH2RMR3",
 			},
 		},
 		{
 			word: "ଭ୍ରମଣ",
 			expected: expected{
-				"VRMN",
-				"V2RMN",
-				"V2RMN",
+				"BHRMNH",
+				"BH2RMNH",
+				"BH2RMNH",
 			},
 		},
 	}

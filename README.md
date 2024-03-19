@@ -10,11 +10,13 @@ The algorithm takes into account the context sensitivity of sounds, syntactic an
 
 ### Examples
 
-| Word    | Pronunciation | key0 | key1   | key2      |
-|---------|---------------|------|--------|-----------|
-| ଭ୍ରମର   | vramara       | VRMR | V2RMR  | V2RMR     |
-| ଭ୍ରମରେ  | vramarè       | VRMR | V2RMR3 | V2RMR3    |
-| ଭ୍ରମଣ   | vramańa       | VRMN | V2RMN  | V2RMN     |
+| Word   | Pronunciation | key0   | key1    | key2    |
+| ------ | ------------- | ------ | ------- | ------- |
+| ଅଂଶ    | ansha         | ASH    | ASH     | A7SH    |
+| ଭ୍ରମର  | vramara       | BHRMR  | BH2RMR  | BH2RMR  |
+| ଭ୍ରମରେ | vramarè       | BHRMR  | BH2RMR3 | BH2RMR3 |
+| ଭ୍ରମଣ  | vramańa       | BHRMNH | BH2RMNH | BH2RMNH |
+
 
 ### Go implementation
 
