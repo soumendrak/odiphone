@@ -21,7 +21,7 @@
 //
 // This is based on MLphone (https://github.com/knadh/mlphone/) for Malayalam.
 //
-// Soumendra Kumar Sahoo (c) 2022. https://www.soumendrak.com | License: GPLv3
+// Soumendra Kumar Sahoo (c) 2024. https://www.soumendrak.com | License: GPLv3
 package odiphone
 
 import (
@@ -31,15 +31,15 @@ import (
 
 var vowels = map[string]string{
 	"ଅ": "A",
-	"ଆ": "A",
+	"ଆ": "AA",
 	"ଇ": "I",
-	"ଈ": "I",
+	"ଈ": "EE",
 	"ଉ": "U",
-	"ଊ": "U",
-	"ଋ": "R",
-	"ୠ": "R",
+	"ଊ": "OO",
+	"ଋ": "RU",
+	"ୠ": "ROO",
 	"ଏ": "E",
-	"ଐ": "AI",
+	"ଐ": "EI",
 	"ଓ": "O",
 	"ଔ": "OU",
 }
@@ -55,11 +55,11 @@ var consonants = map[string]string{
 	"ଜ": "J",
 	"ଝ": "JH",
 	"ଞ": "NY",
-	"ଟ": "T",
-	"ଠ": "TH",
-	"ଡ": "D",
-	"ଢ": "DH",
-	"ଣ": "N",
+	"ଟ": "TT",
+	"ଠ": "TTH",
+	"ଡ": "DD",
+	"ଢ": "DDH",
+	"ଣ": "NH",
 	"ତ": "T",
 	"ଥ": "TH",
 	"ଦ": "D",
@@ -68,27 +68,26 @@ var consonants = map[string]string{
 	"ପ": "P",
 	"ଫ": "PH",
 	"ବ": "B",
-	"ଭ": "V",
+	"ଭ": "BH",
 	"ମ": "M",
 	"ଯ": "J",
 	"ର": "R",
 	"ଲ": "L",
 	"ଳ": "LH",
-	"ଵ": "B",
+	"ଵ": "W",
 	"ଶ": "SH",
 	"ଷ": "SH",
 	"ସ": "S",
 	"ହ": "H",
 	"ୟ": "Y",
-	"ୱ": "UA",
+	"ୱ": "WA",
 }
 
 var compounds = map[string]string{
-	// TODO: Tobe done for Odia
-	"କ୍ତ": "K2",
-	"ଙ୍କ": "K3",
+	"କ୍ତ": "KT",
+	"ଙ୍କ": "NK",
 	"ଙ୍ଗ": "NG",
-	"ଙ୍ଘ": "NG2",
+	"ଙ୍ଘ": "NGH",
 	"ଞ୍ଜ": "NJ",
 }
 
