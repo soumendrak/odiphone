@@ -1,6 +1,6 @@
-# ODphone (WIP)
+# ODIphone (WIP)
 
-ODphone is a phonetic algorithm for indexing Odia words by their pronunciation, like Metaphone for English. The algorithm generates three Romanized phonetic keys (hashes) of varying phonetic affinities for a given Odia word. This package implements the algorithm in Go.
+ODIphone is a phonetic algorithm for indexing Odia words by their pronunciation, like Metaphone for English. The algorithm generates three Romanized phonetic keys (hashes) of varying phonetic affinities for a given Odia word. This package implements the algorithm in Go.
 
 The algorithm takes into account the context sensitivity of sounds, syntactic and phonetic gemination, compounding, modifiers, and other known exceptions to produce Romanized phonetic hashes of increasing phonetic affinity that are very faithful to the pronunciation of the original Odia word.
 
@@ -19,7 +19,7 @@ The algorithm takes into account the context sensitivity of sounds, syntactic an
 ### Go implementation
 
 Install the package:
-`go get -u github.com/odictly/odphone`
+`go get -u github.com/soumendrak/odiphone`
 
 ```go
 package main
@@ -27,11 +27,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/odictly/odphone"
+	"github.com/soumendrak/odiphone"
 )
 
 func main() {
-	od := odphone.New()
+	od := odiphone.New()
 	fmt.Println(od.Encode("ଭ୍ରମର"))
 	fmt.Println(od.Encode("ଭ୍ରମରେ"))
 	fmt.Println(od.Encode("ଭ୍ରମଣ"))

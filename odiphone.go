@@ -1,4 +1,4 @@
-// Package odphone (Odia Phone) is a phonetic algorithm for indexing
+// Package odiphone (Odia Phone) is a phonetic algorithm for indexing
 // unicode Odia words by their pronounciation, like Metaphone for English.
 // The algorithm generates three Romanized phonetic keys (hashes) of varying
 // phonetic proximity for a given Odia word.
@@ -16,13 +16,13 @@
 // `key2` = highly inclusive and narrow hash that accounts for hard sounds
 // and phonetic modifiers
 //
-// odphone was created to aid spelling tolerant Odia word search, but may
+// odiphone was created to aid spelling tolerant Odia word search, but may
 // be useful in tasks like spell checking, word suggestion etc.
 //
 // This is based on MLphone (https://github.com/knadh/mlphone/) for Malayalam.
 //
 // Soumendra Kumar Sahoo (c) 2022. https://www.soumendrak.com | License: GPLv3
-package odphone
+package odiphone
 
 import (
 	"regexp"
@@ -121,19 +121,19 @@ var (
 	regexAlphaNum, _ = regexp.Compile(`[^\dA-Z]`)
 )
 
-// ODphone is the Odia-phone tokenizer.
-type ODphone struct {
+// ODIphone is the Odia-phone tokenizer.
+type ODIphone struct {
 	modCompounds  *regexp.Regexp
 	modConsonants *regexp.Regexp
 	modVowels     *regexp.Regexp
 }
 
-// New returns a new instance of the ODphone tokenizer.
-func New() *ODphone {
+// New returns a new instance of the ODIphone tokenizer.
+func New() *ODIphone {
 	var (
 		glyphs []string
 		mods   []string
-		od     = &ODphone{}
+		od     = &ODIphone{}
 	)
 
 	// modifiers.
@@ -164,10 +164,10 @@ func New() *ODphone {
 	return od
 }
 
-// Encode encodes a unicode Odia string to its Roman ODphone hash.
+// Encode encodes a unicode Odia string to its Roman ODIphone hash.
 // Ideally, words should be encoded one at a time, and not as phrases
 // or sentences.
-func (od *ODphone) Encode(input string) (string, string, string) {
+func (od *ODIphone) Encode(input string) (string, string, string) {
 	// key2 accounts for hard and modified sounds.
 	key2 := od.process(input)
 
@@ -181,7 +181,7 @@ func (od *ODphone) Encode(input string) (string, string, string) {
 	return key0, key1, key2
 }
 
-func (od *ODphone) process(input string) string {
+func (od *ODIphone) process(input string) string {
 	// Remove all non-odia characters.
 	input = regexNonOdia.ReplaceAllString(strings.Trim(input, ""), "")
 
@@ -219,7 +219,7 @@ func (od *ODphone) process(input string) string {
 	return regexAlphaNum.ReplaceAllString(input, "")
 }
 
-func (od *ODphone) replaceModifiedGlyphs(input string, glyphs map[string]string, r *regexp.Regexp) string {
+func (od *ODIphone) replaceModifiedGlyphs(input string, glyphs map[string]string, r *regexp.Regexp) string {
 	for _, matches := range r.FindAllStringSubmatch(input, -1) {
 		for _, m := range matches {
 			if rep, ok := glyphs[m]; ok {

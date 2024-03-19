@@ -1,4 +1,4 @@
-package odphone
+package odiphone
 
 import (
 	"testing"
@@ -15,11 +15,11 @@ type expected struct {
 	val1, val2, val3 string
 }
 
-func TestODPhone(t *testing.T) {
+func TestODIPhone(t *testing.T) {
 	phone := New()
 	testStrings := []testVal{
 		{
-			word: "ଭ୍ରମର",
+			word: "ଅଂଶ",
 			expected: expected{"VRMR",
 				"V2RMR",
 				"V2RMR",
